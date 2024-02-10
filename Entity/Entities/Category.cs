@@ -1,8 +1,9 @@
-﻿namespace Entity.Entities
+﻿using Core.Entities;
+
+namespace Entity.Entities
 {
-    public class Category
+    public class Category : EntityBase
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public ICollection<Article>? Articles { get; set; }
     }

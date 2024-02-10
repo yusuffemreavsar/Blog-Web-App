@@ -1,8 +1,10 @@
-﻿namespace Entity.Entities
+﻿using Core.Entities;
+
+namespace Entity.Entities
+
 {
-    public class Article
+    public class Article : EntityBase
     {
-        public Guid Id { get; set; }
         public string Title { get; set; }
         public string? Content { get; set; }
         public int ViewCount { get; set; }
