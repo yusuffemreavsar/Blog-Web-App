@@ -1,5 +1,6 @@
 ﻿using Entity.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Data.Context
 {
@@ -15,6 +16,10 @@ namespace Data.Context
         public DbSet<Article> Articles { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Image> Images { get; set; }
-      
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
     }
 }

@@ -4,6 +4,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,13 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240210103701_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -44,7 +47,7 @@ namespace Data.Migrations
                     b.Property<string>("DeletedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DeletedDate")
+                    b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("ImageId")
@@ -53,12 +56,13 @@ namespace Data.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ModifiedDate")
+                    b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("ViewCount")
                         .HasColumnType("int");
@@ -73,44 +77,6 @@ namespace Data.Migrations
                     b.HasIndex("ImageId");
 
                     b.ToTable("Articles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("5a71a730-bd2a-4cfc-8c62-216a52cf2bd4"),
-                            CategoryId = new Guid("7d2aae5f-547f-49ee-8ff4-15046c4f8cd8"),
-                            Content = "About Asp.net Core...",
-                            CreatedBy = "Admin",
-                            CreatedDate = new DateTime(2024, 2, 13, 20, 18, 45, 235, DateTimeKind.Local).AddTicks(413),
-                            ImageId = new Guid("8f770e4d-85e5-4c28-9dd3-2ca7b30c8d8d"),
-                            Title = "Asp.net Core Example",
-                            ViewCount = 15,
-                            isDeleted = false
-                        },
-                        new
-                        {
-                            Id = new Guid("ae7e7f60-f8d0-4c1c-9e75-c5d1f7dd5ab2"),
-                            CategoryId = new Guid("942f9f84-6156-40c5-adb0-93970f70e720"),
-                            Content = "About Spring Boot...",
-                            CreatedBy = "Admin",
-                            CreatedDate = new DateTime(2024, 2, 13, 20, 18, 45, 235, DateTimeKind.Local).AddTicks(426),
-                            ImageId = new Guid("ddd58d89-c5b1-4ce6-89d4-de833e22cd06"),
-                            Title = "Spring Boot Example",
-                            ViewCount = 10,
-                            isDeleted = false
-                        },
-                        new
-                        {
-                            Id = new Guid("42bb230b-7ae4-4167-a920-78501cca15ce"),
-                            CategoryId = new Guid("2ed3ec85-5fc6-43d9-b2a3-19f8523b9eae"),
-                            Content = "About Node.Js...",
-                            CreatedBy = "Admin",
-                            CreatedDate = new DateTime(2024, 2, 13, 20, 18, 45, 235, DateTimeKind.Local).AddTicks(458),
-                            ImageId = new Guid("b0ab9960-dcf0-49ca-a313-da0f42e5e1c5"),
-                            Title = "Node.Js Example",
-                            ViewCount = 24,
-                            isDeleted = false
-                        });
                 });
 
             modelBuilder.Entity("Entity.Entities.Category", b =>
@@ -129,13 +95,13 @@ namespace Data.Migrations
                     b.Property<string>("DeletedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DeletedDate")
+                    b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ModifiedDate")
+                    b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -148,32 +114,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("7d2aae5f-547f-49ee-8ff4-15046c4f8cd8"),
-                            CreatedBy = "Admin",
-                            CreatedDate = new DateTime(2024, 2, 13, 20, 18, 45, 235, DateTimeKind.Local).AddTicks(3732),
-                            Name = "Asp.net Core",
-                            isDeleted = false
-                        },
-                        new
-                        {
-                            Id = new Guid("942f9f84-6156-40c5-adb0-93970f70e720"),
-                            CreatedBy = "Admin",
-                            CreatedDate = new DateTime(2024, 2, 13, 20, 18, 45, 235, DateTimeKind.Local).AddTicks(3742),
-                            Name = "Spring Boot",
-                            isDeleted = false
-                        },
-                        new
-                        {
-                            Id = new Guid("2ed3ec85-5fc6-43d9-b2a3-19f8523b9eae"),
-                            CreatedBy = "Admin",
-                            CreatedDate = new DateTime(2024, 2, 13, 20, 18, 45, 235, DateTimeKind.Local).AddTicks(3748),
-                            Name = "Node.Js",
-                            isDeleted = false
-                        });
                 });
 
             modelBuilder.Entity("Entity.Entities.Image", b =>
@@ -192,7 +132,7 @@ namespace Data.Migrations
                     b.Property<string>("DeletedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DeletedDate")
+                    b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FileName")
@@ -206,7 +146,7 @@ namespace Data.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ModifiedDate")
+                    b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("isDeleted")
@@ -215,35 +155,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Images");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("8f770e4d-85e5-4c28-9dd3-2ca7b30c8d8d"),
-                            CreatedBy = "Admin",
-                            CreatedDate = new DateTime(2024, 2, 13, 20, 18, 45, 235, DateTimeKind.Local).AddTicks(6640),
-                            FileName = "images/testimage_1",
-                            FileType = "jpg",
-                            isDeleted = false
-                        },
-                        new
-                        {
-                            Id = new Guid("ddd58d89-c5b1-4ce6-89d4-de833e22cd06"),
-                            CreatedBy = "Admin",
-                            CreatedDate = new DateTime(2024, 2, 13, 20, 18, 45, 235, DateTimeKind.Local).AddTicks(6650),
-                            FileName = "images/testimage_2",
-                            FileType = "jpg",
-                            isDeleted = false
-                        },
-                        new
-                        {
-                            Id = new Guid("b0ab9960-dcf0-49ca-a313-da0f42e5e1c5"),
-                            CreatedBy = "Admin",
-                            CreatedDate = new DateTime(2024, 2, 13, 20, 18, 45, 235, DateTimeKind.Local).AddTicks(6657),
-                            FileName = "images/testimage_3",
-                            FileType = "jpg",
-                            isDeleted = false
-                        });
                 });
 
             modelBuilder.Entity("Entity.Entities.Article", b =>
